@@ -1,4 +1,6 @@
 const inside = require('point-in-polygon')
+const NodeGeocoder = require('node-geocoder')
+const FetchAdapter = require('node-geocoder/lib/httpadapter/fetchadapter')
 const EventEmitter = require('events')
 const path = require('path')
 const fs = require('fs')
@@ -37,6 +39,63 @@ class Controller extends EventEmitter {
 		this.dtsCache = {}
 		this.geocoder = geocoder
 		this.shortener = this.getShortener()
+	}
+
+	getGeocoder() {
+		let basicAuthFetchAdapter
+		if (this.config.geocoding.providerURL.includes('@')) {
+			const [basicAuthUser, basicAuthPassword] = this.config.geocoding.providerURL.split('@')[0].split(':')
+			basicAuthFetchAdapter = new FetchAdapter({
+				headers: {
+					Authorization: 'Basic ' + Buffer.from(`${basicAuthUser}:${basicAuthPassword}`).toString('base64'),
+				},
+			})
+		}
+		switch (this.config.geocoding.provider.toLowerCase()) {
+			case 'poracle': {
+				return NodeGeocoder({
+					provider: 'openstreetmap',
+					osmServer: this.config.geocoding.providerURL,
+					formatterPattern: this.config.locale.addressFormat,
+					timeout: this.config.tuning.geocodingTimeout || 5000,
+				})
+			}
+			case 'nominatim': {
+				const geocoder = NodeGeocoder({
+					provider: 'openstreetmap',
+					httpAdapter: basicAuthFetchAdapter,
+					osmServer: basicAuthFetchAdapter ? this.config.geocoding.providerURL.split('@')[1] : this.config.geocoding.providerURL,
+					formatterPattern: this.config.locale.addressFormat,
+					timeout: this.config.tuning.geocodingTimeout || 5000,
+				})
+				// Hack in suburb support
+				// eslint-disable-next-line no-underscore-dangle
+				geocoder._geocoder._formatResult = ((original) => (result) => ({
+					...original(result),
+					suburb: result.address.suburb || '',
+					town: result.address.town || '',
+					village: result.address.village || '',
+					// eslint-disable-next-line no-underscore-dangle
+				}))(geocoder._geocoder._formatResult)
+				return geocoder
+			}
+			case 'google': {
+				return NodeGeocoder({
+					provider: 'google',
+					httpAdapter: 'https',
+					apiKey: this.config.geocoding.geocodingKey[Math.floor(Math.random() * this.config.geocoding.geocodingKey.length)],
+					timeout: this.config.tuning.geocodingTimeout || 5000,
+				})
+			}
+			default:
+			{
+				return NodeGeocoder({
+					provider: 'openstreetmap',
+					formatterPattern: this.config.locale.addressFormat,
+					timeout: this.config.tuning.geocodingTimeout || 5000,
+				})
+			}
+		}
 	}
 
 	buildAreaString(matched) {
