@@ -47,7 +47,7 @@ class Controller extends EventEmitter {
 			const [basicAuthUser, basicAuthPassword] = this.config.geocoding.providerURL.split('@')[0].split(':')
 			basicAuthFetchAdapter = new FetchAdapter({
 				headers: {
-					Authorization: 'Basic ' + Buffer.from(`${basicAuthUser}:${basicAuthPassword}`).toString('base64'),
+					Authorization: `Basic ${Buffer.from(`${basicAuthUser}:${basicAuthPassword}`).toString('base64')}`,
 				},
 			})
 		}
