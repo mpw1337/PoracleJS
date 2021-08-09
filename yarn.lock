@@ -3183,6 +3183,16 @@ object.values@^1.1.3:
     define-properties "^1.1.3"
     es-abstract "^1.18.2"
 
+ohbem@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/ohbem/-/ohbem-1.2.2.tgz#f1189140e0e92d4424ac8087d516ab35d25c2b0a"
+  integrity sha512-mP7aXMFRgCYNBHlimzm4i81cIYKZ7qlKvKNXyoXqZB5ElsPNFpv67skgVXLZBmk8rNLWO17yauQ7JjoKUn0tyw==
+  dependencies:
+    pogo-protos "github:Furtif/pogo-protos"
+  optionalDependencies:
+    axios "^0.21.1"
+    lru-cache "^6.0.0"
+
 once@^1.3.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
@@ -3422,6 +3432,12 @@ please-upgrade-node@^3.2.0:
 "pogo-protos@git+https://github.com/Furtif/pogo-protos.git":
   version "2.54.7"
   resolved "git+https://github.com/Furtif/pogo-protos.git#98c2ebadcb865e0bd13b09bc2d461a14acd4cc50"
+  dependencies:
+    protobufjs "^6.10.2"
+
+"pogo-protos@github:Furtif/pogo-protos":
+  version "2.54.8"
+  resolved "https://codeload.github.com/Furtif/pogo-protos/tar.gz/4cf4b683e5b65bdde573b05be71a1643b7a22fa6"
   dependencies:
     protobufjs "^6.10.2"
 
