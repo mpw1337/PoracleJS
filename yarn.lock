@@ -3247,10 +3247,10 @@ object.values@^1.1.3:
     define-properties "^1.1.3"
     es-abstract "^1.18.2"
 
-ohbem@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/ohbem/-/ohbem-1.2.2.tgz#f1189140e0e92d4424ac8087d516ab35d25c2b0a"
-  integrity sha512-mP7aXMFRgCYNBHlimzm4i81cIYKZ7qlKvKNXyoXqZB5ElsPNFpv67skgVXLZBmk8rNLWO17yauQ7JjoKUn0tyw==
+ohbem@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/ohbem/-/ohbem-1.2.3.tgz#a7c3b0c9f08fb97655e95bb64585542e6e722fd3"
+  integrity sha512-Xzu+WwLzN4oPj5sV4yfKbRiXvXm4asXSm5p8Dyd520BvzE4r5pybekGVGaeM4sw7ywvWaNIPHQRSiIAWQPaMGw==
   dependencies:
     pogo-protos "github:Furtif/pogo-protos"
   optionalDependencies:
@@ -3514,6 +3514,11 @@ point-in-polygon@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/point-in-polygon/-/point-in-polygon-1.1.0.tgz#b0af2616c01bdee341cbf2894df643387ca03357"
   integrity sha512-3ojrFwjnnw8Q9242TzgXuTD+eKiutbzyslcq1ydfu82Db2y+Ogbmyrkpv0Hgj31qwT3lbS9+QAAO/pIQM35XRw==
+
+poke-types@^1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/poke-types/-/poke-types-1.0.22.tgz#511d595d59d1b845589633b973a5f9fde37dadfe"
+  integrity sha512-PH9YfLUnN131UuQHQvSaOEhol/TFH3cdEHZwigjxFYsmqH/pNuDHSRBLBD2ywEwTrIisyaYUw139IPmy9K9yRw==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
