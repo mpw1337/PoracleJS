@@ -2,7 +2,16 @@ const axios = require('axios')
 
 class NominatimGeocoder {
 	constructor(url, timeout) {
-		this.baseUrl = url
+		this.withBasicAuth = false
+		if (url.includes('@')) {
+			// eslint-disable-next-line prefer-destructuring
+			this.baseUrl = url.split('@')[1]
+			const [basicAuthUser, basicAuthPassword] = url.split('@')[0].split(':')
+			this.withBasicAuth = true
+			this.basicAuth = `Basic ${Buffer.from(`${basicAuthUser}:${basicAuthPassword}`).toString('base64')}`
+		} else {
+			this.baseUrl = url
+		}
 		this.timeout = timeout || 10000
 	}
 
@@ -46,6 +55,9 @@ class NominatimGeocoder {
 			url: url.toString(),
 			validateStatus: ((status) => status < 500),
 			cancelToken: source.token,
+			headers: {
+				Authorization: this.basicAuth,
+			},
 		})
 		clearTimeout(timeout)
 
